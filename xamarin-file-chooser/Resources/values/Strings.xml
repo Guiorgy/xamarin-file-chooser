@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">xamarin_file_chooser</string>
+    <string name="action_settings">Settings</string>
+</resources>
