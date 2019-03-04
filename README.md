@@ -2,7 +2,7 @@
 
 ## Overview
 
-![banner](captures/banner.svg)
+![banner](https://raw.githubusercontent.com/hedzr/android-file-chooser/master/captures/banner.svg)
 
 ### android-file-chooser
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-android--file--chooser-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/6982)
@@ -12,9 +12,9 @@
 ### Snapshots
 
 <table><tr><td>
-<img src="captures/choose_file.png" width="360"/>
+<img src="https://raw.githubusercontent.com/hedzr/android-file-chooser/master/captures/choose_file.png" width="360"/>
 </td><td>
-<img src="captures/choose_folder.png" width="360"/>
+<img src="https://raw.githubusercontent.com/hedzr/android-file-chooser/master/captures/choose_folder.png" width="360"/>
 </td><td>
 <img src="https://user-images.githubusercontent.com/27736965/53578348-f1d35880-3b90-11e9-9ef4-7ed0276ca603.gif" width="360"/>
 </td></tr></table>
