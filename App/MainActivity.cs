@@ -6,7 +6,7 @@ using Android.Widget;
 using Com.Obsez.Android.Lib.Filechooser;
 using Java.IO;
 using System.Collections.Generic;
-using static Com.Obsez.Android.Lib.Filechooser.ChooserDialog;
+using static Com.Obsez.Android.Lib.Filechooser.Listeners;
 
 namespace App
 {
@@ -55,98 +55,6 @@ namespace App
             displayPath.Checked = true;
         }
 
-        class DismissListener : Java.Lang.Object, IDialogInterfaceOnDismissListener
-        {
-            private Context ctx;
-            private List<File> files;
-
-            public DismissListener(Context ctx, List<File> files)
-            {
-                this.ctx = ctx;
-                this.files = files;
-            }
-
-            public void OnDismiss(IDialogInterface dialog)
-            {
-                if (files.Count == 0) return;
-
-                List<string> paths = new List<string>();
-                foreach (File file in files)
-                {
-                    paths.Add(file.AbsolutePath);
-                }
-
-                new Android.App.AlertDialog.Builder(ctx)
-                    .SetTitle(files.Count + " files selected:")
-                    .SetAdapter(new ArrayAdapter<string>(ctx, Android.Resource.Layout.SimpleExpandableListItem1, paths), (IDialogInterfaceOnClickListener) null)
-                    .Create()
-                    .Show();
-            }
-        }
-
-        class LastBackListener : Java.Lang.Object, IOnBackPressedListener
-        {
-            private List<File> files;
-
-            public LastBackListener(List<File> files)
-            {
-                this.files = files;
-            }
-
-            public void OnBackPressed(Android.App.AlertDialog dialog)
-            {
-                files.Clear();
-                dialog.Dismiss();
-            }
-        }
-
-        class NegativeClickListener : Java.Lang.Object, IDialogInterfaceOnClickListener
-        {
-            private List<File> files;
-
-            public NegativeClickListener(List<File> files)
-            {
-                this.files = files;
-            }
-
-            public void OnClick(IDialogInterface dialog, int which)
-            {
-                files.Clear();
-                dialog.Dismiss();
-            }
-        }
-
-        class Result : Java.Lang.Object, IResult
-        {
-            private ChooserDialog dialog;
-            private bool continueFromLast;
-            private List<File> files;
-
-            public Result(ChooserDialog dialog, bool continueFromLast, List<File> files)
-            {
-                this.dialog = dialog;
-                this.continueFromLast = continueFromLast;
-                this.files = files;
-            }
-
-            public void OnChoosePath(string dir, File dirFile)
-            {
-                if (continueFromLast)
-                {
-                    _path = dir;
-                }
-                if (dirFile.IsDirectory)
-                {
-                    dialog.Dismiss();
-                    return;
-                }
-                if (!files.Remove(dirFile))
-                {
-                    files.Add(dirFile);
-                }
-            }
-        }
-
         public void OnClick(object sender, System.EventArgs e)
         {
             //choose a file
@@ -183,10 +91,51 @@ namespace App
                 if (Build.VERSION.SdkInt >= BuildVersionCodes.JellyBeanMr1)
                 {
                     chooserDialog
-                    .WithOnDismissListener(new DismissListener(ctx, files))
-                    .WithOnLastBackPressedListener(new LastBackListener(files))
-                    .WithNegativeButtonListener(new NegativeClickListener(files))
-                    .WithChosenListener(new Result(chooserDialog, continueFromLast.Checked, files));
+                    .WithOnDismissListener((AlertDialog) =>
+                    {
+                        if (files.Count == 0)
+                        {
+                            return;
+                        }
+
+                        List<string> paths = new List<string>();
+                        foreach (File file in files)
+                        {
+                            paths.Add(file.AbsolutePath);
+                        }
+
+                        new Android.App.AlertDialog.Builder(ctx)
+                            .SetTitle(files.Count + " files selected:")
+                            .SetAdapter(new ArrayAdapter<string>(ctx, Android.Resource.Layout.SimpleExpandableListItem1, paths), (IDialogInterfaceOnClickListener)null)
+                            .Create()
+                            .Show();
+                    })
+                    .WithOnLastBackPressedListener((alertDialog) =>
+                    {
+                        files.Clear();
+                        chooserDialog.Dismiss();
+                    })
+                    .WithNegativeButtonListener((alertDialog, which) =>
+                    {
+                        files.Clear();
+                        chooserDialog.Dismiss();
+                    })
+                    .WithChosenListener((dir, dirFile) =>
+                    {
+                        if (continueFromLast.Checked)
+                        {
+                            _path = dir;
+                        }
+                        if (dirFile.IsDirectory)
+                        {
+                            chooserDialog.Dismiss();
+                            return;
+                        }
+                        if (!files.Remove(dirFile))
+                        {
+                            files.Add(dirFile);
+                        }
+                    });
                 }
                 else
                 {
@@ -194,7 +143,10 @@ namespace App
                     // dialog might be dismissed.
                     void OnDismis()
                     {
-                        if (files.Count == 0) return;
+                        if (files.Count == 0)
+                        {
+                            return;
+                        }
 
                         List<string> paths = new List<string>();
                         foreach (File file in files)
@@ -212,15 +164,15 @@ namespace App
                     chooserDialog
                         .WithOnLastBackPressedListener(dialog =>
                         {
-                            files.clear();
-                            dialog.dismiss();
-                            onDismiss.run();
+                            files.Clear();
+                            dialog.Dismiss();
+                            OnDismis();
                         })
                     .WithNegativeButtonListener((dialog, which) =>
                     {
-                        files.clear();
-                        dialog.dismiss();
-                        onDismiss.run();
+                        files.Clear();
+                        dialog.Dismiss();
+                        OnDismis();
                     })
                     .WithChosenListener((dir, dirFile) =>
                     {
@@ -228,15 +180,15 @@ namespace App
                         {
                             _path = dir;
                         }
-                        if (dirFile.isDirectory())
+                        if (dirFile.IsDirectory)
                         {
-                            chooserDialog.dismiss();
-                            onDismiss.run();
+                            chooserDialog.Dismiss();
+                            OnDismis();
                             return;
                         }
-                        if (!files.remove(dirFile))
+                        if (!files.Remove(dirFile))
                         {
-                            files.add(dirFile);
+                            files.Add(dirFile);
                         }
                     });
                 }
@@ -249,10 +201,14 @@ namespace App
                     {
                         _path = dir;
                     }
-                    Toast.makeText(ctx, (dirFile.isDirectory() ? "FOLDER: " : "FILE: ") + dir,
-                        Toast.LENGTH_SHORT).show();
-                    _tv.setText(dir);
-                    if (dirFile.isFile()) _iv.setImageBitmap(ImageUtil.decodeFile(dirFile));
+                    Toast.MakeText(ctx, (dirFile.IsDirectory ? "FOLDER: " : "FILE: ") + dir,
+                        ToastLength.Short).Show();
+                    _tv.Text = dir;
+                    if (dirFile.IsFile)
+                    {
+                        // Not implemented
+                        //_iv.SetImageBitmap(ImageUtil.decodeFile(dirFile));
+                    }
                 });
             }
             if (continueFromLast.Checked && _path != null)
