@@ -2,7 +2,7 @@
 
 ## Overview
 
-![banner](https://github.com/hedzr/android-file-chooser/blob/master/captures/banner.svg?raw=true?sanitize=true)
+<img src="https://raw.githubusercontent.com/hedzr/android-file-chooser/master/captures/banner.svg">
 
 ### android-file-chooser
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-android--file--chooser-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/6982)
