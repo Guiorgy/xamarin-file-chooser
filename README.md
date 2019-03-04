@@ -25,6 +25,26 @@ A demo-app of the original can be installed from [Play Store](https://play.googl
 
 ## Usage
 
+```cs
+using Com.Obsez.Android.Lib.Filechooser;
+using static Com.Obsez.Android.Lib.Filechooser.Listeners;
+
+ChooserDialog chooserDialog = new ChooserDialog(context)
+    .WithResources(dirOnly.Checked ? Resource.String.title_choose_folder : Resource.String.title_choose_file,
+        Resource.String.title_choose, Resource.String.dialog_cancel)
+    .EnableOptions(true)
+    .DisplayPath(true)
+    .WithChosenListener((dir, dirFile) =>
+    {
+        if (continueFromLast.Checked)
+        {
+            _path = dir;
+        }
+        Toast.MakeText(ctx, (dirFile.IsDirectory ? "FOLDER: " : "FILE: ") + dir, ToastLength.Short).Show();
+    })
+    .Build().Show();
+```
+ 
 For more information please refere to the [original repo](https://github.com/hedzr/android-file-chooser), and don't forget to give it a :star:!
 
 ## Licence
