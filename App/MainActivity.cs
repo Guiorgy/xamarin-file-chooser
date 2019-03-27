@@ -56,19 +56,32 @@ namespace App
             customLayout = FindViewById<CheckBox>(Resource.Id.checkbox_custom_layout);
             darkTheme = FindViewById<CheckBox>(Resource.Id.checkbox_dark_theme);
 
-            titleFollowsDir.CheckedChange += ((s, e) => {
-                if (e.IsChecked) customLayout.Checked = false;
+            titleFollowsDir.CheckedChange += ((s, e) =>
+            {
+                if (e.IsChecked)
+                {
+                    customLayout.Checked = false;
+                }
             });
 
-            displayPath.CheckedChange += ((s, e) => {
-                if (e.IsChecked) customLayout.Checked = false;
+            displayPath.CheckedChange += ((s, e) =>
+            {
+                if (e.IsChecked)
+                {
+                    customLayout.Checked = false;
+                }
             });
 
-            dateFormat.CheckedChange += ((s, e) => {
-                if (e.IsChecked) customLayout.Checked = false;
+            dateFormat.CheckedChange += ((s, e) =>
+            {
+                if (e.IsChecked)
+                {
+                    customLayout.Checked = false;
+                }
             });
 
-            customLayout.CheckedChange += ((s, e) => {
+            customLayout.CheckedChange += ((s, e) =>
+            {
                 if (e.IsChecked)
                 {
                     dateFormat.Checked = false;
@@ -87,7 +100,10 @@ namespace App
         {
             //choose a file
             Context ctx = this;
-            if (ctx == null) return;
+            if (ctx == null)
+            {
+                return;
+            }
 
             List<File> files = new List<File>();
 
