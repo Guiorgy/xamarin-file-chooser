@@ -1,4 +1,4 @@
-# xamarin-file-chooser binding of android-file-chooser 1.1.16
+# xamarin-file-chooser binding of android-file-chooser
 
 ### NuGet
 [![NuGet](https://img.shields.io/nuget/v/XamarinFileChooser.svg?style=flat&max-age=86400)](https://www.nuget.org/packages/XamarinFileChooser/)
@@ -45,7 +45,7 @@ ChooserDialog chooserDialog = new ChooserDialog(context)
         }
         Toast.MakeText(ctx, (dirFile.IsDirectory ? "FOLDER: " : "FILE: ") + dir, ToastLength.Short).Show();
     })
-    .Build().Show();
+    .Show();
 ```
  
 For more information please refere to the [original repo](https://github.com/hedzr/android-file-chooser), and don't forget to give it a :star:!
