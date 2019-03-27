@@ -1,11 +1,16 @@
 ﻿using Android.App;
+using Android.Content;
 using Android.OS;
 using Android.Support.Design.Widget;
 using Android.Support.V7.App;
 using Android.Support.V7.Widget;
 using Android.Views;
+using Android.Widget;
+using System;
 using System.Collections.Generic;
-using System.Linq;
+using Toolbar = Android.Support.V7.Widget.Toolbar;
+using Uri = Android.Net.Uri;
+using String = Java.Lang.String;
 
 namespace App
 {
@@ -38,7 +43,7 @@ namespace App
 
         private void SetupRecyclerView()
         {
-            var linearLayoutManager = new LinearLayoutManager(this);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
             recyclerView.SetLayoutManager(linearLayoutManager);
             recyclerView.AddItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.Horizontal));
             recyclerView.SetItemAnimator(new DefaultItemAnimator());
@@ -53,7 +58,7 @@ namespace App
             internal MainAdapter(AppCompatActivity context, List<Items> items)
             {
                 this.context = context;
-                foreach (var it in items)
+                foreach (Items it in items)
                 {
                     if (it.items.IsNotEmpty())
                     {
@@ -65,20 +70,100 @@ namespace App
 
             public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
             {
-                throw new System.NotImplementedException();
+                return new ViewHolder(LayoutInflater.From(context).Inflate(Resource.Layout.li_about_item, parent, false),
+                    (view, holder) =>
+                    {
+                        if (holder.mValueView.Tag != null && (holder.mValueView.Tag is String))
+                        {
+                            string link = (holder.mValueView.Tag as String).ToString();
+                            if (link.StartsWith("mailto:"))
+                            {
+                                context.StartActivity(new Intent(Intent.ActionSendto, Uri.Parse(link)));
+                            }
+                            else if (link.StartsWith("tel:"))
+                            {
+                                context.StartActivity(new Intent(Intent.ActionDial, Uri.Parse(link)));
+                            }
+                            else if (link.StartsWith("market:"))
+                            {
+                                Intent intent = new Intent(Intent.ActionDial, Uri.Parse(link));
+                                intent.AddFlags(ActivityFlags.NoHistory | ActivityFlags.NewDocument | ActivityFlags.MultipleTask);
+                                try
+                                {
+                                    context.StartActivity(intent);
+                                }
+                                catch (ActivityNotFoundException)
+                                {
+                                    context.StartActivity(new Intent(Intent.ActionView,
+                                        Uri.Parse("http://play.google.com/store/apps/details?id=" + context.PackageName)));
+                                }
+                            }
+                            else
+                            {
+                                context.StartActivity(new Intent(Intent.ActionView, Uri.Parse(link)));
+                            }
+                        }
+                    });
             }
 
-            public override int ItemCount => this.plainItems.Count;
+            public override int ItemCount => plainItems.Count;
 
             public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
             {
-                throw new System.NotImplementedException();
+                var it = plainItems[position];
+                var vh = holder as ViewHolder;
+
+                vh.mTitleView.Text = it.title;
+                vh.mSubTitleView.Text = it.subTitle;
+                vh.mValueView.Text = it.value;
+
+                if (it.subTitle.IsBlank())
+                {
+                    vh.mSubTitleView.Visibility = ViewStates.Gone;
+                }
+                else
+                {
+                    vh.mSubTitleView.Visibility = ViewStates.Visible;
+                }
+
+                if (it.catalog == null || it.catalog.IsBlank())
+                {
+                    vh.mCatalogView.Text = it.catalog;
+                    vh.mCatalogView.Visibility = ViewStates.Visible;
+                }
+                else
+                {
+                    vh.mCatalogView.Visibility = ViewStates.Gone;
+                }
+
+                vh.mValueView.Tag = it.valueLink;
             }
 
             private class ViewHolder : RecyclerView.ViewHolder
             {
-                public ViewHolder(View itemView) : base(itemView)
+
+                internal TextView mTitleView;
+                internal TextView mSubTitleView;
+                internal TextView mValueView;
+                internal TextView mCatalogView;
+                internal ImageView mIconView;
+
+                public ViewHolder(View view, Action<View, ViewHolder> click) : base(view)
                 {
+                    mTitleView = view.FindViewById<TextView>(Resource.Id.title);
+                    mSubTitleView = view.FindViewById<TextView>(Resource.Id.sub_title);
+                    mValueView = view.FindViewById<TextView>(Resource.Id.value);
+                    mCatalogView = view.FindViewById<TextView>(Resource.Id.catalog);
+                    mIconView = view.FindViewById<ImageView>(Resource.Id.icon);
+
+                    View row = view.FindViewById<View>(Resource.Id.row);
+                    if (row != null)
+                    {
+                        row.Click += (s, e) =>
+                        {
+                            click(view, this);
+                        };
+                    }
                 }
             }
         }
@@ -136,6 +221,11 @@ namespace App
         public static bool IsNotEmpty<T>(this IList<T> list)
         {
             return list.Count != 0;
+        }
+
+        public static bool IsBlank(this string str)
+        {
+            return str.Trim().Length == 0;
         }
     }
 }
