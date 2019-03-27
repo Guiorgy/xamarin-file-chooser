@@ -1,7 +1,9 @@
 ﻿using Android.App;
 using Android.Content;
+using Android.Net;
 using Android.OS;
 using Android.Support.V7.App;
+using Android.Views;
 using Android.Widget;
 using Com.Obsez.Android.Lib.Filechooser;
 using Java.IO;
@@ -10,7 +12,7 @@ using static Com.Obsez.Android.Lib.Filechooser.Listeners;
 
 namespace App
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
+    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", Icon = "@mipmap/ic_launcher", MainLauncher = true)]
     public class MainActivity : AppCompatActivity
     {
         private CheckBox disableTitle;
@@ -24,6 +26,8 @@ namespace App
         private CheckBox filterImages;
         private CheckBox displayIcon;
         private CheckBox dateFormat;
+        private CheckBox darkTheme;
+        private CheckBox customLayout;
 
         private static string _path = null;
         private TextView _tv;
@@ -49,6 +53,30 @@ namespace App
             filterImages = FindViewById<CheckBox>(Resource.Id.checkbox_filter_images);
             displayIcon = FindViewById<CheckBox>(Resource.Id.checkbox_display_icon);
             dateFormat = FindViewById<CheckBox>(Resource.Id.checkbox_date_format);
+            customLayout = FindViewById<CheckBox>(Resource.Id.checkbox_custom_layout);
+            darkTheme = FindViewById<CheckBox>(Resource.Id.checkbox_dark_theme);
+
+            titleFollowsDir.CheckedChange += ((s, e) => {
+                if (e.IsChecked) customLayout.Checked = false;
+            });
+
+            displayPath.CheckedChange += ((s, e) => {
+                if (e.IsChecked) customLayout.Checked = false;
+            });
+
+            dateFormat.CheckedChange += ((s, e) => {
+                if (e.IsChecked) customLayout.Checked = false;
+            });
+
+            customLayout.CheckedChange += ((s, e) => {
+                if (e.IsChecked)
+                {
+                    dateFormat.Checked = false;
+                    darkTheme.Checked = false;
+                    titleFollowsDir.Checked = false;
+                    displayPath.Checked = false;
+                }
+            });
 
             FindViewById(Resource.Id.btn_show_dialog).Click += OnClick;
 
@@ -59,13 +87,32 @@ namespace App
         {
             //choose a file
             Context ctx = this;
+            if (ctx == null) return;
+
             List<File> files = new List<File>();
 
-            ChooserDialog chooserDialog = new ChooserDialog(ctx)
+            ChooserDialog chooserDialog;
+            //if (darkTheme.Checked)
+            //{
+            //    chooserDialog = new ChooserDialog(ctx, Resource.Style.FileChooserStyle_Dark);
+            //}
+            //else
+            {
+                chooserDialog = new ChooserDialog(ctx);
+            }
+
+
+            chooserDialog
                 .WithResources(dirOnly.Checked ? Resource.String.title_choose_folder : Resource.String.title_choose_file,
                     Resource.String.title_choose, Resource.String.dialog_cancel)
                 .WithOptionResources(Resource.String.option_create_folder, Resource.String.options_delete,
                     Resource.String.new_folder_cancel, Resource.String.new_folder_ok)
+                // Optionally, you can use Strings instead:
+                /*.WithStringResources(
+                dirOnly.isChecked() ? "Choose a folder" : "Choose a file",
+                    "Choose", "Cancel")
+                .WithOptionStringResources("New folder",
+                    "Delete", "Cancel", "Ok")*/
                 .DisableTitle(disableTitle.Checked)
                 .EnableOptions(EnableOptions.Checked)
                 .TitleFollowsDir(titleFollowsDir.Checked)
@@ -225,6 +272,32 @@ namespace App
             }
 
             chooserDialog.Build().Show();
+        }
+
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            // Inflate the menu; this adds items to the action bar if it is present.
+            MenuInflater.Inflate(Resource.Menu.menu_choose_file, menu);
+            return true;
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            // Handle action bar item clicks here. The action bar will
+            // automatically handle clicks on the Home/Up button, so long
+            // as you specify a parent activity in AndroidManifest.xml.
+            if (item.ItemId == Resource.Id.action_about)
+            {
+                StartActivity(new Intent(this, typeof(AboutActivity)));
+                return true;
+            }
+            if (item.ItemId == Resource.Id.action_gh)
+            {
+                StartActivity(
+                    new Intent(Intent.ActionView, Uri.Parse("https://github.com/hedzr/android-file-chooser")));
+                return true;
+            }
+            return base.OnOptionsItemSelected(item);
         }
     }
 }
