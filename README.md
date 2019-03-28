@@ -33,8 +33,10 @@ using Com.Obsez.Android.Lib.Filechooser;
 using static Com.Obsez.Android.Lib.Filechooser.Listeners;
 
 ChooserDialog chooserDialog = new ChooserDialog(context)
-    .WithResources(dirOnly.Checked ? Resource.String.title_choose_folder : Resource.String.title_choose_file,
-        Resource.String.title_choose, Resource.String.dialog_cancel)
+    .WithStringResources(dirOnly.isChecked() ? "Choose a folder" : "Choose a file",
+    	"Choose", "Cancel")
+    .WithOptionStringResources("New folder",
+    	"Delete", "Cancel", "Ok")
     .EnableOptions(true)
     .DisplayPath(true)
     .WithChosenListener((dir, dirFile) =>
