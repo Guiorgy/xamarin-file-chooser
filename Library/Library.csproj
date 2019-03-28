@@ -86,7 +86,7 @@
   <ItemGroup>
     <None Include="Jars\AboutJars.txt" />
     <None Include="Additions\AboutAdditions.txt" />
-    <LibraryProjectZip Include="Jars\android-file-chooser-1.1.16.aar" />
+    <LibraryProjectZip Include="Jars\android-file-chooser-1.1.17.aar" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

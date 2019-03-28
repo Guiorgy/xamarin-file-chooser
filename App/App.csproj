@@ -39,7 +39,7 @@
     <BundleAssemblies>false</BundleAssemblies>
     <EnableProguard>false</EnableProguard>
     <LangVersion>7.3</LangVersion>
-    <AndroidSupportedAbis />
+    <AndroidSupportedAbis>armeabi-v7a;x86</AndroidSupportedAbis>
     <JavaMaximumHeapSize>4G</JavaMaximumHeapSize>
     <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
     <AndroidTlsProvider>btls</AndroidTlsProvider>
@@ -59,7 +59,7 @@
     <AotAssemblies>false</AotAssemblies>
     <EnableLLVM>false</EnableLLVM>
     <BundleAssemblies>false</BundleAssemblies>
-    <AndroidSupportedAbis />
+    <AndroidSupportedAbis>armeabi-v7a;x86</AndroidSupportedAbis>
     <JavaMaximumHeapSize>4G</JavaMaximumHeapSize>
     <AndroidTlsProvider>btls</AndroidTlsProvider>
     <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
@@ -71,6 +71,7 @@
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutActivity.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -96,20 +97,22 @@
     <PackageReference Include="Xamarin.Android.Support.Constraint.Layout.Solver">
       <Version>1.1.2</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.Design">
+      <Version>28.0.0</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.v7.AppCompat">
+      <Version>28.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.v7.RecyclerView">
       <Version>28.0.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Library\Library.csproj">
-      <Project>{4767482a-f8d0-4054-a079-62af178f1b30}</Project>
-      <Name>Library</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\mipmap-hdpi\ic_launcher.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidResource Include="Resources\menu\menu_about.xml" />
+  </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\mipmap-anydpi-v26\ic_launcher.xml" />
   </ItemGroup>
@@ -157,6 +160,55 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_foreground.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\menu\menu_choose_file.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values-v16\styles.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values-v21\styles.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_info_outline_999_24dp.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_home_999_24dp.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\font\adamina.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\font\amita.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\dimens.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\font_certs.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\preloaded_fonts.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\li_about_item.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\activity_about.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_launcher.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Library\Library.csproj">
+      <Project>{4767482a-f8d0-4054-a079-62af178f1b30}</Project>
+      <Name>Library</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

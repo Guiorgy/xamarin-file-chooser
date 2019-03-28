@@ -2,17 +2,17 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
 	<metadata>
 		<id>XamarinFileChooser</id>
-		<version>1.1.16</version>
-		<authors>Guiorgy</authors>
-		<owners>Guiorgy</owners>
+		<version>1.1.17</version>
+		<authors>Hedzr (https://github.com/hedzr), Guiorgy</authors>
+		<owners>Hedzr (https://github.com/hedzr), Guiorgy</owners>
 		<projectUrl>https://github.com/Guiorgy/xamarin-file-chooser</projectUrl>
 		<license type="expression">Apache-2.0</license>
 		<iconUrl>https://raw.githubusercontent.com/hedzr/android-file-chooser/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png</iconUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
-		<releaseNotes>Release 1.1.16</releaseNotes>
+		<releaseNotes>Release 1.1.17</releaseNotes>
 		<copyright>Copyright ©2015-2019 Hedzr Yeh</copyright>
 		<description>A binding of android-file-chooser by hedzr</description>
-		<tags>xamarin binding fileChooser android</tags>
+		<tags>xamarin android binding fileChooser file-chooser fileBrowser file-browser filePicker file-picker</tags>
 		<dependencies>
 			<dependency id="Xamarin.Android.Support.v7.AppCompat" version="28.0.0" />
 		</dependencies>
