@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".about.AboutActivity"
-	android:background="#f00">
+    tools:context=".about.AboutActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
@@ -29,7 +28,7 @@
 
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/bg"
-                android:layout_width="80dp"
+                android:layout_width="64dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="end"
                 android:layout_marginLeft="30dp"
@@ -52,14 +51,9 @@
     </android.support.design.widget.AppBarLayout>
 
 	<android.support.v4.widget.NestedScrollView
-		xmlns:android="http://schemas.android.com/apk/res/android"
-		xmlns:app="http://schemas.android.com/apk/res-auto"
-		xmlns:tools="http://schemas.android.com/tools"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		app:layout_behavior="@string/appbar_scrolling_view_behavior"
-		tools:context=".about.AboutActivity"
-		tools:showIn="@layout/activity_about">
+		app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 		<android.support.v7.widget.RecyclerView
 			android:id="@+id/recyclerView"

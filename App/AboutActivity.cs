@@ -47,7 +47,7 @@ namespace App
             recyclerView.SetLayoutManager(linearLayoutManager);
             recyclerView.AddItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.Horizontal));
             recyclerView.SetItemAnimator(new DefaultItemAnimator());
-            //recyclerView.SetAdapter(MainAdapter(this@AboutActivity, aboutItems));
+            recyclerView.SetAdapter(new MainAdapter(this, aboutItems));
         }
 
         private class MainAdapter : RecyclerView.Adapter
@@ -73,9 +73,11 @@ namespace App
                 return new ViewHolder(LayoutInflater.From(context).Inflate(Resource.Layout.li_about_item, parent, false),
                     (view, holder) =>
                     {
-                        if (holder.mValueView.Tag != null && (holder.mValueView.Tag is String))
+                        if (holder.mValueView.Tag != null)
                         {
+                            System.Console.WriteLine(holder.mValueView.Tag is String);
                             string link = (holder.mValueView.Tag as String).ToString();
+                            System.Console.WriteLine(link);
                             if (link.StartsWith("mailto:"))
                             {
                                 context.StartActivity(new Intent(Intent.ActionSendto, Uri.Parse(link)));
