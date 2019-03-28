@@ -75,9 +75,17 @@ namespace App
                     {
                         if (holder.mValueView.Tag != null)
                         {
-                            System.Console.WriteLine(holder.mValueView.Tag is String);
-                            string link = (holder.mValueView.Tag as String).ToString();
-                            System.Console.WriteLine(link);
+                            String jlink;
+                            try
+                            {
+                                jlink = Android.Runtime.Extensions.JavaCast<String>(holder.mValueView.Tag);
+                            } catch (Exception e)
+                            {
+                                jlink = null;
+                            }
+                            if (jlink == null) return;
+                            string link = jlink.ToString();
+                            if (link == null) return;
                             if (link.StartsWith("mailto:"))
                             {
                                 context.StartActivity(new Intent(Intent.ActionSendto, Uri.Parse(link)));
