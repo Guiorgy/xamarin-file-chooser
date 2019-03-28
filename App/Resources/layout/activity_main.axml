@@ -314,7 +314,8 @@
             app:layout_constraintStart_toStartOf="@+id/calc_guideline_half"
             app:layout_constraintTop_toTopOf="@+id/checkbox_dark_theme"
             app:layout_constraintVertical_bias="1.0"
-            app:layout_constraintWidth_max="@+id/calc_guideline_half" />
+            app:layout_constraintWidth_max="@+id/calc_guideline_half"
+			 android:visibility="gone" />
 
         <TextView
             android:id="@+id/textView"
