@@ -1,16 +1,19 @@
 ﻿using Android.App;
 using Android.Content;
+using Android.Views;
 using Android.Widget;
 using Com.Obsez.Android.Lib.Filechooser.Tool;
 using Java.IO;
 using System;
 using static Com.Obsez.Android.Lib.Filechooser.ChooserDialog;
+using static Com.Obsez.Android.Lib.Filechooser.Tool.DirAdapter;
+using Object = Java.Lang.Object;
 
 namespace Com.Obsez.Android.Lib.Filechooser
 {
     public static class Listeners
     {
-        public class Result : Java.Lang.Object, IResult
+        public class Result : Object, IResult
         {
             protected Action<string, File> result;
 
@@ -30,7 +33,7 @@ namespace Com.Obsez.Android.Lib.Filechooser
             return dialog.WithChosenListener(new Result(result));
         }
 
-        public class AdapterSetter : Java.Lang.Object, IAdapterSetter
+        public class AdapterSetter : Object, IAdapterSetter
         {
             protected Action<DirAdapter> apply;
 
@@ -50,7 +53,27 @@ namespace Com.Obsez.Android.Lib.Filechooser
             return dialog.WithAdapterSetter(new AdapterSetter(apply));
         }
 
-        public class CanNavigateUp : Java.Lang.Object, ICanNavigateUp
+        public class GetView : Object, IGetView
+        {
+            protected Func<File, bool, bool, View, ViewGroup, LayoutInflater, View> getView;
+
+            public GetView(Func<File, bool, bool, View, ViewGroup, LayoutInflater, View> getView)
+            {
+                this.getView = getView;
+            }
+
+            View IGetView.GetView(File file, bool isSelected, bool isFocused, View convertView, ViewGroup parent, LayoutInflater inflater)
+            {
+                return getView(file, isSelected, isFocused, convertView, parent, inflater);
+            }
+        }
+
+        public static void OverrideGetView(this DirAdapter adapter, Func<File, bool, bool, View, ViewGroup, LayoutInflater, View> getView)
+        {
+            adapter.OverrideGetView(new GetView(getView));
+        }
+
+        public class CanNavigateUp : Object, ICanNavigateUp
         {
             protected Predicate<File> canUpTo;
 
@@ -70,7 +93,7 @@ namespace Com.Obsez.Android.Lib.Filechooser
             return dialog.WithNavigateUpTo(new CanNavigateUp(canUpTo));
         }
 
-        public class CanNavigateTo : Java.Lang.Object, ICanNavigateTo
+        public class CanNavigateTo : Object, ICanNavigateTo
         {
             protected Predicate<File> canNavigate;
 
@@ -90,7 +113,7 @@ namespace Com.Obsez.Android.Lib.Filechooser
             return dialog.WithNavigateTo(new CanNavigateTo(canNavigate));
         }
 
-        public class OnBackPressed : Java.Lang.Object, IOnBackPressedListener
+        public class OnBackPressed : Object, IOnBackPressedListener
         {
             protected Action<AlertDialog> onBackPressed;
 
@@ -115,7 +138,7 @@ namespace Com.Obsez.Android.Lib.Filechooser
             return dialog.WithOnLastBackPressedListener(new OnBackPressed(onBackPressed));
         }
 
-        public class CustomizePathViewImp : Java.Lang.Object, ICustomizePathView
+        public class CustomizePathViewImp : Object, ICustomizePathView
         {
             protected Action<TextView> customize;
 
@@ -135,7 +158,7 @@ namespace Com.Obsez.Android.Lib.Filechooser
             return dialog.CustomizePathView(new CustomizePathViewImp(customize));
         }
 
-        public class NegativeButtonListener : Java.Lang.Object, IDialogInterfaceOnClickListener
+        public class NegativeButtonListener : Object, IDialogInterfaceOnClickListener
         {
             protected Action<IDialogInterface, int> onClick;
 
@@ -160,7 +183,7 @@ namespace Com.Obsez.Android.Lib.Filechooser
             return dialog.WithNegativeButtonListener(new NegativeButtonListener(onClick));
         }
 
-        public class CancellListener : Java.Lang.Object, IDialogInterfaceOnCancelListener
+        public class CancellListener : Object, IDialogInterfaceOnCancelListener
         {
             protected Action<IDialogInterface> onCancel;
 
@@ -180,7 +203,7 @@ namespace Com.Obsez.Android.Lib.Filechooser
             return dialog.WithOnCancelListener(new CancellListener(onCancel));
         }
 
-        public class DismissListener : Java.Lang.Object, IDialogInterfaceOnDismissListener
+        public class DismissListener : Object, IDialogInterfaceOnDismissListener
         {
             protected Action<IDialogInterface> onDismiss;
 
