@@ -230,29 +230,29 @@ namespace App
                             dialog.Dismiss();
                             OnDismis();
                         })
-                    .WithNegativeButtonListener((dialog, which) =>
-                    {
-                        files.Clear();
-                        dialog.Dismiss();
-                        OnDismis();
-                    })
-                    .WithChosenListener((dir, dirFile) =>
-                    {
-                        if (continueFromLast.Checked)
+                        .WithNegativeButtonListener((dialog, which) =>
                         {
-                            _path = dir;
-                        }
-                        if (dirFile.IsDirectory)
-                        {
-                            chooserDialog.Dismiss();
+                            files.Clear();
+                            dialog.Dismiss();
                             OnDismis();
-                            return;
-                        }
-                        if (!files.Remove(dirFile))
+                        })
+                        .WithChosenListener((dir, dirFile) =>
                         {
-                            files.Add(dirFile);
-                        }
-                    });
+                            if (continueFromLast.Checked)
+                            {
+                                _path = dir;
+                            }
+                            if (dirFile.IsDirectory)
+                            {
+                                chooserDialog.Dismiss();
+                                OnDismis();
+                                return;
+                            }
+                            if (!files.Remove(dirFile))
+                            {
+                                files.Add(dirFile);
+                            }
+                        });
                 }
             }
             else
