@@ -11,9 +11,9 @@
 ### Snapshots
 
 <table><tr><td>
-<img src="captures/choose_file.png" width="360"/>
+<img src="https://raw.githubusercontent.com/hedzr/android-file-chooser/master/captures/choose_file.png" width="360"/>
 </td><td>
-<img src="captures/choose_folder.png" width="360"/>
+<img src="https://raw.githubusercontent.com/hedzr/android-file-chooser/master/captures/choose_folder.png" width="360"/>
 </td><td>
 <img src="https://user-images.githubusercontent.com/27736965/55721190-c0616e80-5a13-11e9-982e-6fa1431be8ed.gif" width="360"/>
 </td></tr>
