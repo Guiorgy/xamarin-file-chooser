@@ -296,7 +296,7 @@
             app:layout_constraintWidth_max="@+id/calc_guideline_half" />
 
         <CheckBox
-            android:id="@+id/checkbox_custom_layout"
+            android:id="@+id/checkbox_dpad"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -306,7 +306,7 @@
             android:layout_marginRight="8dp"
             android:checked="false"
 			android:textSize="12sp"
-            android:text="@string/custom_layout"
+            android:text="@string/dpad"
             app:layout_constrainedWidth="true"
             app:layout_constraintBottom_toBottomOf="@+id/checkbox_dark_theme"
             app:layout_constraintEnd_toEndOf="parent"
@@ -314,8 +314,49 @@
             app:layout_constraintStart_toStartOf="@+id/calc_guideline_half"
             app:layout_constraintTop_toTopOf="@+id/checkbox_dark_theme"
             app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintWidth_max="@+id/calc_guideline_half" />
+        
+
+        <CheckBox
+            android:id="@+id/checkbox_back"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:checked="false"
+			android:textSize="12sp"
+            android:text="@string/back"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toStartOf="@+id/calc_guideline_half"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkbox_dark_theme"
+            app:layout_constraintWidth_max="@+id/calc_guideline_half" />
+
+        <CheckBox
+            android:id="@+id/reserved"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:checked="false"
+			android:textSize="12sp"
+            android:text="@string/reserved"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toBottomOf="@+id/checkbox_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/calc_guideline_half"
+            app:layout_constraintTop_toTopOf="@+id/checkbox_back"
+            app:layout_constraintVertical_bias="1.0"
             app:layout_constraintWidth_max="@+id/calc_guideline_half"
-			 android:visibility="gone" />
+			android:visibility="gone" />
 
         <TextView
             android:id="@+id/textView"
@@ -333,7 +374,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkbox_dark_theme" />
+            app:layout_constraintTop_toBottomOf="@+id/checkbox_back" />
 
         <ImageView
             android:id="@+id/imageView"

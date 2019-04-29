@@ -27,7 +27,8 @@ namespace App
         private CheckBox displayIcon;
         private CheckBox dateFormat;
         private CheckBox darkTheme;
-        private CheckBox customLayout;
+        private CheckBox dpad;
+        private CheckBox back;
 
         private static string _path = null;
         private TextView _tv;
@@ -53,47 +54,14 @@ namespace App
             filterImages = FindViewById<CheckBox>(Resource.Id.checkbox_filter_images);
             displayIcon = FindViewById<CheckBox>(Resource.Id.checkbox_display_icon);
             dateFormat = FindViewById<CheckBox>(Resource.Id.checkbox_date_format);
-            customLayout = FindViewById<CheckBox>(Resource.Id.checkbox_custom_layout);
             darkTheme = FindViewById<CheckBox>(Resource.Id.checkbox_dark_theme);
-
-            titleFollowsDir.CheckedChange += ((s, e) =>
-            {
-                if (e.IsChecked)
-                {
-                    customLayout.Checked = false;
-                }
-            });
-
-            displayPath.CheckedChange += ((s, e) =>
-            {
-                if (e.IsChecked)
-                {
-                    customLayout.Checked = false;
-                }
-            });
-
-            dateFormat.CheckedChange += ((s, e) =>
-            {
-                if (e.IsChecked)
-                {
-                    customLayout.Checked = false;
-                }
-            });
-
-            customLayout.CheckedChange += ((s, e) =>
-            {
-                if (e.IsChecked)
-                {
-                    dateFormat.Checked = false;
-                    darkTheme.Checked = false;
-                    titleFollowsDir.Checked = false;
-                    displayPath.Checked = false;
-                }
-            });
+            dpad = FindViewById<CheckBox>(Resource.Id.checkbox_dpad);
+            back = FindViewById<CheckBox>(Resource.Id.checkbox_back);
 
             FindViewById(Resource.Id.btn_show_dialog).Click += OnClick;
 
             displayPath.Checked = true;
+            dpad.Checked = true;
         }
 
         public void OnClick(object sender, System.EventArgs e)
@@ -117,7 +85,6 @@ namespace App
                 chooserDialog = new ChooserDialog(ctx);
             }
 
-
             chooserDialog
                 .WithResources(dirOnly.Checked ? Resource.String.title_choose_folder : Resource.String.title_choose_file,
                     Resource.String.title_choose, Resource.String.dialog_cancel)
@@ -131,7 +98,8 @@ namespace App
                 .DisableTitle(disableTitle.Checked)
                 .EnableOptions(EnableOptions.Checked)
                 .TitleFollowsDir(titleFollowsDir.Checked)
-                .DisplayPath(displayPath.Checked);
+                .DisplayPath(displayPath.Checked)
+                .EnableDpad(dpad.Checked);
 
             if (filterImages.Checked)
             {
@@ -284,6 +252,13 @@ namespace App
             if (dateFormat.Checked)
             {
                 chooserDialog.WithDateFormat("dd MMMM yyyy");
+            }
+            if (back.Checked)
+            {
+                chooserDialog.WithOnBackPressedListener((dialog) =>
+                {
+                    chooserDialog.GoBack();
+                });
             }
 
             chooserDialog.Build().Show();
