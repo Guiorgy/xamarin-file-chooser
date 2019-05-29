@@ -1,5 +1,7 @@
 # xamarin-file-chooser binding of android-file-chooser
 
+![banner](captures/xfc.svg)
+
 ### NuGet
 [![NuGet](https://img.shields.io/nuget/v/XamarinFileChooser.svg?style=flat&max-age=86400)](https://www.nuget.org/packages/XamarinFileChooser/)
 
@@ -54,13 +56,15 @@ ChooserDialog chooserDialog = new ChooserDialog(context)
     .Show();
 ```
  
-For more information please refere to the [original repo](https://github.com/hedzr/android-file-chooser), and don't forget to give it a :star:!
+For more information please refere to the [original repo](https://github.com/hedzr/android-file-chooser), and don't forget to give it a :star:!\
+Logo and banner originally by: [**iqbalhood**](https://github.com/iqbalhood)
 
 ## Licence
 
 Standard Apache 2.0
 
-Copyright 2015-2019 Hedzr Yeh
+Copyright 2015-2019 Hedzr Yeh\
+Modified 2018-2019 Guiorgy
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
