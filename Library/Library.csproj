@@ -141,7 +141,7 @@
   <ItemGroup>
     <None Include="Jars\AboutJars.txt" />
     <None Include="Additions\AboutAdditions.txt" />
-    <LibraryProjectZip Include="Jars\android-file-chooser-1.1.19.aar" />
+    <LibraryProjectZip Include="Jars\android-file-chooser-1.2.0.aar" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
