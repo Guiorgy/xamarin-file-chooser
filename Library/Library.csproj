@@ -15,7 +15,7 @@
     <FileAlignment>512</FileAlignment>
     <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
     <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
-    <AndroidClassParser>jar2xml</AndroidClassParser>
+    <AndroidClassParser>class-parse</AndroidClassParser>
     <AndroidCodegenTarget>XamarinAndroid</AndroidCodegenTarget>
     <!-- A workaround for [`AndroidSdkBuildToolsVersion` is not exported in binding projects (https://github.com/xamarin/xamarin-android/issues/2452)] -->
     <AndroidSdkBuildToolsVersion Condition="'$(AndroidSdkBuildToolsVersion)' == ''">28.0.3</AndroidSdkBuildToolsVersion>
