@@ -8,7 +8,6 @@ using Android.Widget;
 using Com.Obsez.Android.Lib.Filechooser;
 using Java.IO;
 using System.Collections.Generic;
-using static Com.Obsez.Android.Lib.Filechooser.Listeners;
 
 namespace App
 {
