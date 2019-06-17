@@ -17,8 +17,8 @@
     <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
     <AndroidClassParser>jar2xml</AndroidClassParser>
     <AndroidCodegenTarget>XamarinAndroid</AndroidCodegenTarget>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <!-- A workaround for [`AndroidSdkBuildToolsVersion` is not exported in binding projects (https://github.com/xamarin/xamarin-android/issues/2452)] -->
+    <AndroidSdkBuildToolsVersion Condition="'$(AndroidSdkBuildToolsVersion)' == ''">28.0.3</AndroidSdkBuildToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
