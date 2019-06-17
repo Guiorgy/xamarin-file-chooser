@@ -36,7 +36,6 @@ A demo-app of the original can be installed from [Play Store](https://play.googl
 
 ```cs
 using Com.Obsez.Android.Lib.Filechooser;
-using static Com.Obsez.Android.Lib.Filechooser.Listeners;
 
 ChooserDialog chooserDialog = new ChooserDialog(context)
     .WithStringResources(dirOnly.isChecked() ? "Choose a folder" : "Choose a file",
