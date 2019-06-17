@@ -90,7 +90,7 @@ namespace App
                 .WithOptionResources(Resource.String.option_create_folder, Resource.String.options_delete,
                     Resource.String.new_folder_cancel, Resource.String.new_folder_ok)
                 // Optionally, you can use Strings instead:
-                /*.WithStringResources(dirOnly.isChecked() ? "Choose a folder" : "Choose a file",
+                /*.WithStringResources(dirOnly.Checked ? "Choose a folder" : "Choose a file",
                     "Choose", "Cancel")
                 .WithOptionStringResources("New folder",
                     "Delete", "Cancel", "Ok")*/
