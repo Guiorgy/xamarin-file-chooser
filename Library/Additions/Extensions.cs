@@ -1,5 +1,4 @@
-﻿using Android.App;
-using Android.Content;
+﻿using Android.Content;
 using Android.Views;
 using Android.Widget;
 using Com.Obsez.Android.Lib.Filechooser.Tool;
@@ -7,6 +6,7 @@ using Java.IO;
 using System;
 using static Com.Obsez.Android.Lib.Filechooser.ChooserDialog;
 using static Com.Obsez.Android.Lib.Filechooser.Tool.DirAdapter;
+using AlertDialog = Android.Support.V7.App.AlertDialog;
 using Object = Java.Lang.Object;
 
 namespace Com.Obsez.Android.Lib.Filechooser
